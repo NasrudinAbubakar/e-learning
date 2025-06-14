@@ -1,0 +1,409 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Learning Paths{% endblock %}
+
+{% block content %}
+        <!-- Header Section -->
+        <header class="header">
+            <div>
+                <h1 class="page-title">Learning Paths</h1>
+                <p class="page-subtitle">Structured roadmaps to master new skills. Follow these expert-curated paths to achieve your learning goals efficiently.</p>
+            </div>
+            
+            <div class="path-filter-controls">
+                <div class="path-filter-dropdown">
+                    <select>
+                        <option>All Categories</option>
+                        <option>Technology</option>
+                        <option>Business</option>
+                        <option>Design</option>
+                        <option>Languages</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                
+                <div class="path-filter-dropdown">
+                    <select>
+                        <option>All Levels</option>
+                        <option>Beginner</option>
+                        <option>Intermediate</option>
+                        <option>Advanced</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+<!-- Featured Learning Path -->
+<section class="featured-path">
+    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+        alt="Data Science Path" class="featured-path-image">
+
+    <div class="featured-path-content">
+        <span class="featured-badge">Featured Path</span>
+        <h2 class="featured-title">Become a Data Scientist in 2025</h2>
+        <p class="featured-description">
+            Master the essential skills needed for a career in data science. This comprehensive path covers Python,
+            machine learning, data visualization, and more through hands-on projects.
+        </p>
+
+        <div class="featured-stats">
+            <div class="featured-stat">
+                <i class="fas fa-book-open"></i>
+                <span class="featured-stat-text">12 Courses</span>
+            </div>
+            <div class="featured-stat">
+                <i class="fas fa-clock"></i>
+                <span class="featured-stat-text">120 Hours</span>
+            </div>
+            <div class="featured-stat">
+                <i class="fas fa-user-graduate"></i>
+                <span class="featured-stat-text">8,500+ Students</span>
+            </div>
+        </div>
+
+        <div class="path-actions">
+            <button class="btn btn-outline"
+                style="background-color: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.3);">Explore
+                Path</button>
+            <button class="btn btn-primary" style="background-color: white; color: var(--accent-blue);">Start
+                Learning</button>
+        </div>
+    </div>
+</section>
+
+<!-- Learning Paths Grid -->
+<section>
+    <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;">All Learning Paths</h2>
+
+    <div class="paths-grid">
+        <!-- Path 1 -->
+        <div class="path-card">
+            <div class="path-header">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    alt="Fullstack Development" class="path-header-image">
+                <div class="path-header-overlay">
+                    <div>
+                        <h3 class="path-title">Fullstack Web Development</h3>
+                        <div class="path-meta">
+                            <span><i class="fas fa-book-open"></i> 10 Courses</span>
+                            <span><i class="fas fa-clock"></i> 90 Hours</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="path-level intermediate">Intermediate</span>
+            </div>
+
+            <div class="path-body">
+                <p class="path-description">
+                    Go from beginner to building fullstack applications with modern frameworks like React, Node.js, and
+                    MongoDB.
+                </p>
+
+                <div class="path-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">12,450</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.8</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Completion</div>
+                    </div>
+                </div>
+
+                <div class="path-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%; background-color: var(--accent-blue);"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Your progress</span>
+                        <span>45%</span>
+                    </div>
+                </div>
+
+                <div class="path-actions">
+                    <button class="btn btn-outline">View Details</button>
+                    <button class="btn btn-primary">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Path 2 -->
+        <div class="path-card">
+            <div class="path-header">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    alt="Digital Marketing" class="path-header-image">
+                <div class="path-header-overlay">
+                    <div>
+                        <h3 class="path-title">Digital Marketing Mastery</h3>
+                        <div class="path-meta">
+                            <span><i class="fas fa-book-open"></i> 8 Courses</span>
+                            <span><i class="fas fa-clock"></i> 60 Hours</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="path-level beginner">Beginner</span>
+            </div>
+
+            <div class="path-body">
+                <p class="path-description">
+                    Learn SEO, social media marketing, content strategy, and analytics to launch successful campaigns.
+                </p>
+
+                <div class="path-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">8,720</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.7</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">78%</div>
+                        <div class="stat-label">Completion</div>
+                    </div>
+                </div>
+
+                <div class="path-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15%; background-color: var(--accent-green);"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Your progress</span>
+                        <span>15%</span>
+                    </div>
+                </div>
+
+                <div class="path-actions">
+                    <button class="btn btn-outline">View Details</button>
+                    <button class="btn btn-primary">Start</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Path 3 -->
+        <div class="path-card">
+            <div class="path-header">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    alt="UX Design" class="path-header-image">
+                <div class="path-header-overlay">
+                    <div>
+                        <h3 class="path-title">UX/UI Design Professional</h3>
+                        <div class="path-meta">
+                            <span><i class="fas fa-book-open"></i> 7 Courses</span>
+                            <span><i class="fas fa-clock"></i> 75 Hours</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="path-level intermediate">Intermediate</span>
+            </div>
+
+            <div class="path-body">
+                <p class="path-description">
+                    Master user research, wireframing, prototyping, and design systems to create exceptional user
+                    experiences.
+                </p>
+
+                <div class="path-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">6,340</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.9</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">82%</div>
+                        <div class="stat-label">Completion</div>
+                    </div>
+                </div>
+
+                <div class="path-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background-color: var(--accent-purple);"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Your progress</span>
+                        <span>Not started</span>
+                    </div>
+                </div>
+
+                <div class="path-actions">
+                    <button class="btn btn-outline">View Details</button>
+                    <button class="btn btn-primary">Begin</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Path 4 -->
+        <div class="path-card">
+            <div class="path-header">
+                <img src="https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    alt="Mobile Development" class="path-header-image">
+                <div class="path-header-overlay">
+                    <div>
+                        <h3 class="path-title">Mobile App Development</h3>
+                        <div class="path-meta">
+                            <span><i class="fas fa-book-open"></i> 9 Courses</span>
+                            <span><i class="fas fa-clock"></i> 110 Hours</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="path-level advanced">Advanced</span>
+            </div>
+
+            <div class="path-body">
+                <p class="path-description">
+                    Build cross-platform mobile apps with Flutter and React Native, including state management and API
+                    integration.
+                </p>
+
+                <div class="path-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">5,890</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.8</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">68%</div>
+                        <div class="stat-label">Completion</div>
+                    </div>
+                </div>
+
+                <div class="path-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 72%; background-color: var(--accent-orange);"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Your progress</span>
+                        <span>72%</span>
+                    </div>
+                </div>
+
+                <div class="path-actions">
+                    <button class="btn btn-outline">View Details</button>
+                    <button class="btn btn-primary">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Path 5 -->
+        <div class="path-card">
+            <div class="path-header">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    alt="Business" class="path-header-image">
+                <div class="path-header-overlay">
+                    <div>
+                        <h3 class="path-title">Business Administration</h3>
+                        <div class="path-meta">
+                            <span><i class="fas fa-book-open"></i> 6 Courses</span>
+                            <span><i class="fas fa-clock"></i> 50 Hours</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="path-level beginner">Beginner</span>
+            </div>
+
+            <div class="path-body">
+                <p class="path-description">
+                    Essential business skills including management, finance, marketing, and entrepreneurship
+                    fundamentals.
+                </p>
+
+                <div class="path-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">7,120</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.6</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">75%</div>
+                        <div class="stat-label">Completion</div>
+                    </div>
+                </div>
+
+                <div class="path-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%; background-color: var(--accent-green);"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Your progress</span>
+                        <span>30%</span>
+                    </div>
+                </div>
+
+                <div class="path-actions">
+                    <button class="btn btn-outline">View Details</button>
+                    <button class="btn btn-primary">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Path 6 -->
+        <div class="path-card">
+            <div class="path-header">
+                <img src="https://images.unsplash.com/photo-1542626991-cbc4e32524cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                    alt="Cloud Computing" class="path-header-image">
+                <div class="path-header-overlay">
+                    <div>
+                        <h3 class="path-title">Cloud Computing with AWS</h3>
+                        <div class="path-meta">
+                            <span><i class="fas fa-book-open"></i> 11 Courses</span>
+                            <span><i class="fas fa-clock"></i> 95 Hours</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="path-level advanced">Advanced</span>
+            </div>
+
+            <div class="path-body">
+                <p class="path-description">
+                    From fundamentals to advanced AWS services, prepare for cloud architecture and solutions
+                    certification.
+                </p>
+
+                <div class="path-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">9,450</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.9</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">65%</div>
+                        <div class="stat-label">Completion</div>
+                    </div>
+                </div>
+
+                <div class="path-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background-color: var(--accent-blue);"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Your progress</span>
+                        <span>Not started</span>
+                    </div>
+                </div>
+
+                <div class="path-actions">
+                    <button class="path-btn btn-outline">View Details</button>
+                    <button class="path-btn btn-primary">Begin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

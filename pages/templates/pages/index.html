@@ -1,0 +1,238 @@
+{% extends "pages/base.html" %}
+{% block title %}Welcome to EduSphere{% endblock %}
+
+{% block content %}
+    <!-- Header Section -->
+    <header class="header">
+        <div class="greeting">
+            <h1>Expand Your Knowledge</h1>
+            <p>Discover courses that will shape your future</p>
+        </div>
+        
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search courses, topics, or instructors...">
+        </div>
+    </header>
+    
+    <!-- Featured Courses Carousel -->
+    <section>
+        <div class="section-title">
+            <h2>Featured Courses</h2>
+            <a href="#">Browse All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="featured-courses">
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Web Development">
+                    <div class="course-badge">New</div>
+                </div>
+                <div class="course-details">
+                    <h3 class="course-title">Modern Web Development in 2025</h3>
+                    <p class="course-instructor">By Sarah Johnson</p>
+                    <div class="course-meta">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8 (1.2k)</span>
+                        </div>
+                        <span>32 Hours</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="btn btn-secondary">Preview</button>
+                        <button class="btn btn-primary">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Data Science">
+                    <div class="course-badge popular">Popular</div>
+                </div>
+                <div class="course-details">
+                    <h3 class="course-title">Data Science Fundamentals</h3>
+                    <p class="course-instructor">By Michael Chen</p>
+                    <div class="course-meta">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9 (2.4k)</span>
+                        </div>
+                        <span>45 Hours</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="btn btn-secondary">Preview</button>
+                        <button class="btn btn-primary">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Digital Marketing">
+                </div>
+                <div class="course-details">
+                    <h3 class="course-title">Digital Marketing Masterclass</h3>
+                    <p class="course-instructor">By Emma Wilson</p>
+                    <div class="course-meta">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7 (890)</span>
+                        </div>
+                        <span>28 Hours</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="btn btn-secondary">Preview</button>
+                        <button class="btn btn-primary">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1542626991-cbc4e32524cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Mobile Development">
+                </div>
+                <div class="course-details">
+                    <h3 class="course-title">Flutter Mobile Development</h3>
+                    <p class="course-instructor">By David Kim</p>
+                    <div class="course-meta">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8 (1.5k)</span>
+                        </div>
+                        <span>36 Hours</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="btn btn-secondary">Preview</button>
+                        <button class="btn btn-primary">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Course Categories Grid -->
+    <section>
+        <div class="section-title">
+            <h2>Browse by Category</h2>
+            <a href="#">All Categories <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="categories-grid">
+            <div class="category-card">
+                <div class="category-icon tech">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3 class="category-title">Technology</h3>
+                <p class="category-count">98 Courses</p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon business">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3 class="category-title">Business</h3>
+                <p class="category-count">124 Courses</p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon design">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3 class="category-title">Design</h3>
+                <p class="category-count">76 Courses</p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon language">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3 class="category-title">Languages</h3>
+                <p class="category-count">52 Courses</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Popular Courses Grid -->
+    <section>
+        <div class="section-title">
+            <h2>Most Popular Courses</h2>
+            <a href="#">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="popular-courses">
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Frontend Development">
+                </div>
+                <div class="course-details">
+                    <h3 class="course-title">Modern Frontend Development</h3>
+                    <p class="course-instructor">By Alex Turner</p>
+                    <div class="course-meta">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9 (3.1k)</span>
+                        </div>
+                        <span>40 Hours</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="btn btn-secondary">Preview</button>
+                        <button class="btn btn-primary">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Python Programming">
+                </div>
+                <div class="course-details">
+                    <h3 class="course-title">Python for Data Analysis</h3>
+                    <p class="course-instructor">By Maria Garcia</p>
+                    <div class="course-meta">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8 (2.7k)</span>
+                        </div>
+                        <span>35 Hours</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="btn btn-secondary">Preview</button>
+                        <button class="btn btn-primary">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="UX Design">
+                </div>
+                <div class="course-details">
+                    <h3 class="course-title">UX/UI Design Principles</h3>
+                    <p class="course-instructor">By James Wilson</p>
+                    <div class="course-meta">
+                        <div class="course-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7 (1.8k)</span>
+                        </div>
+                        <span>30 Hours</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="btn btn-secondary">Preview</button>
+                        <button class="btn btn-primary">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">Start Learning Today</h2>
+        <p class="cta-description">
+            Join thousands of students worldwide who are advancing their careers with our courses. 
+            Learn at your own pace from industry experts.
+        </p>
+        <a href="#" class="cta-button">Get Started for Free</a>
+    </section>
+{% endblock %}

@@ -1,0 +1,288 @@
+{% extends "pages/base.html" %}
+{% block title %}Featured Instructor {% endblock %}
+{% block content %}
+
+ <!-- Header Section -->
+        <header class="header">
+            <div class="page-title">
+                <h1>Featured Instructors</h1>
+                <p>Learn from industry experts and top-rated educators who are passionate about sharing their knowledge</p>
+            </div>
+            
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search instructors...">
+            </div>
+        </header>
+       <!-- Featured Instructors Section -->
+        <section class="featured-section">
+            <div class="section-title">
+                <h2>Top Educators</h2>
+                <a href="#">View All Instructors <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="instructors-grid">
+                <div class="instructor-card">
+                    <div class="instructor-header">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="instructor-avatar">
+                    </div>
+                    <div class="instructor-body">
+                        <h3 class="instructor-name">Sarah Johnson</h3>
+                        <p class="instructor-title">Senior Web Developer at TechCorp</p>
+                        
+                        <div class="instructor-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">4.9</div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">42</div>
+                                <div class="stat-label">Courses</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">128K</div>
+                                <div class="stat-label">Students</div>
+                            </div>
+                        </div>
+                        
+                        <p class="instructor-bio">
+                            Full-stack developer with 10+ years of experience creating web applications for Fortune 500 companies.
+                        </p>
+                        
+                        <div class="instructor-specialties">
+                            <span class="specialty-tag">JavaScript</span>
+                            <span class="specialty-tag">React</span>
+                            <span class="specialty-tag">Node.js</span>
+                        </div>
+                        
+                        <div class="instructor-actions">
+                            <button class="btn btn-secondary">View Profile</button>
+                            <button class="btn btn-primary">Follow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="instructor-card">
+                    <div class="instructor-header">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="instructor-avatar">
+                    </div>
+                    <div class="instructor-body">
+                        <h3 class="instructor-name">Michael Chen</h3>
+                        <p class="instructor-title">Data Scientist at DataWorks</p>
+                        
+                        <div class="instructor-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">4.8</div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">28</div>
+                                <div class="stat-label">Courses</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">95K</div>
+                                <div class="stat-label">Students</div>
+                            </div>
+                        </div>
+                        
+                        <p class="instructor-bio">
+                            Machine learning expert specializing in natural language processing and computer vision applications.
+                        </p>
+                        
+                        <div class="instructor-specialties">
+                            <span class="specialty-tag">Python</span>
+                            <span class="specialty-tag">TensorFlow</span>
+                            <span class="specialty-tag">Data Science</span>
+                        </div>
+                        
+                        <div class="instructor-actions">
+                            <button class="btn btn-secondary">View Profile</button>
+                            <button class="btn btn-primary">Follow</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="instructor-card">
+                    <div class="instructor-header">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Wilson" class="instructor-avatar">
+                    </div>
+                    <div class="instructor-body">
+                        <h3 class="instructor-name">Emma Wilson</h3>
+                        <p class="instructor-title">Marketing Director at BrandUp</p>
+                        
+                        <div class="instructor-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">4.7</div>
+                                <div class="stat-label">Rating</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">19</div>
+                                <div class="stat-label">Courses</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">76K</div>
+                                <div class="stat-label">Students</div>
+                            </div>
+                        </div>
+                        
+                        <p class="instructor-bio">
+                            Digital marketing strategist helping businesses grow through data-driven marketing campaigns.
+                        </p>
+                        
+                        <div class="instructor-specialties">
+                            <span class="specialty-tag">Marketing</span>
+                            <span class="specialty-tag">SEO</span>
+                            <span class="specialty-tag">Social Media</span>
+                        </div>
+                        
+                        <div class="instructor-actions">
+                            <button class="btn btn-secondary">View Profile</button>
+                            <button class="btn btn-primary">Follow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Top Rated Section -->
+        <section class="top-rated-section">
+            <div class="section-title">
+                <h2>Top Rated Instructors</h2>
+                <a href="#">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="instructors-list">
+                <a href="#" class="instructor-item">
+                    <div class="instructor-rank top">1</div>
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Kim" class="instructor-img">
+                    <div class="instructor-info">
+                        <h3 class="instructor-name-list">David Kim</h3>
+                        <div class="instructor-meta">
+                            <span class="instructor-rating">
+                                <i class="fas fa-star"></i> 4.9
+                            </span>
+                            <span><i class="fas fa-book"></i> 35 courses</span>
+                            <span><i class="fas fa-user-graduate"></i> 142K students</span>
+                        </div>
+                    </div>
+                    <div class="instructor-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                
+                <a href="#" class="instructor-item">
+                    <div class="instructor-rank top">2</div>
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="instructor-img">
+                    <div class="instructor-info">
+                        <h3 class="instructor-name-list">Sarah Johnson</h3>
+                        <div class="instructor-meta">
+                            <span class="instructor-rating">
+                                <i class="fas fa-star"></i> 4.9
+                            </span>
+                            <span><i class="fas fa-book"></i> 42 courses</span>
+                            <span><i class="fas fa-user-graduate"></i> 128K students</span>
+                        </div>
+                    </div>
+                    <div class="instructor-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                
+                <a href="#" class="instructor-item">
+                    <div class="instructor-rank top">3</div>
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="instructor-img">
+                    <div class="instructor-info">
+                        <h3 class="instructor-name-list">Michael Chen</h3>
+                        <div class="instructor-meta">
+                            <span class="instructor-rating">
+                                <i class="fas fa-star"></i> 4.8
+                            </span>
+                            <span><i class="fas fa-book"></i> 28 courses</span>
+                            <span><i class="fas fa-user-graduate"></i> 95K students</span>
+                        </div>
+                    </div>
+                    <div class="instructor-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                
+                <a href="#" class="instructor-item">
+                    <div class="instructor-rank">4</div>
+                    <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Priya Patel" class="instructor-img">
+                    <div class="instructor-info">
+                        <h3 class="instructor-name-list">Priya Patel</h3>
+                        <div class="instructor-meta">
+                            <span class="instructor-rating">
+                                <i class="fas fa-star"></i> 4.8
+                            </span>
+                            <span><i class="fas fa-book"></i> 31 courses</span>
+                            <span><i class="fas fa-user-graduate"></i> 108K students</span>
+                        </div>
+                    </div>
+                    <div class="instructor-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+                
+                <a href="#" class="instructor-item">
+                    <div class="instructor-rank">5</div>
+                    <img src="https://randomuser.me/api/portraits/men/81.jpg" alt="James Wilson" class="instructor-img">
+                    <div class="instructor-info">
+                        <h3 class="instructor-name-list">James Wilson</h3>
+                        <div class="instructor-meta">
+                            <span class="instructor-rating">
+                                <i class="fas fa-star"></i> 4.7
+                            </span>
+                            <span><i class="fas fa-book"></i> 24 courses</span>
+                            <span><i class="fas fa-user-graduate"></i> 87K students</span>
+                        </div>
+                    </div>
+                    <div class="instructor-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="section-title">
+                <h2>Browse by Expertise</h2>
+                <a href="#">View All Categories <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon tech">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="category-title">Technology</h3>
+                    <p class="category-count">85 instructors</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon business">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="category-title">Business</h3>
+                    <p class="category-count">62 instructors</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon design">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="category-title">Design</h3>
+                    <p class="category-count">48 instructors</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon tech">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="category-title">AI & Machine Learning</h3>
+                    <p class="category-count">36 instructors</p>
+                </div>
+            </div>
+        </section>
+{% endblock %}

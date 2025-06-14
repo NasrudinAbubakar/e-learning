@@ -1,0 +1,372 @@
+{% extends "users/base_dashboard.html" %}
+
+{% block title %}Manage Course – EduSphere{% endblock %}
+
+{% block header %}
+ <!-- Header Section -->
+        <header class="header">
+            <div class="header-title">
+                <h1>Manage Course</h1>
+                <p>Edit and update your course content and settings</p>
+            </div>
+
+            <div class="header-actions">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search course content...">
+                </div>
+                <div class="header-notification">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge"></span>
+                </div>
+            </div>
+        </header>
+
+{% endblock %}
+
+{% block content %}
+        <!-- Course Management Layout -->
+        <div class="course-management">
+            <!-- Course Sidebar -->
+            <div class="course-sidebar">
+                <div class="course-preview">
+                    <div class="course-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
+                            alt="Course Thumbnail">
+                    </div>
+                    <span class="course-status status-published">Published</span>
+                    <h3>Modern Web Development in 2025</h3>
+                </div>
+
+                <div class="inst-course-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Students</span>
+                        <span class="meta-value">856</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Rating</span>
+                        <span class="meta-value">4.9 (1.2k)</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Last Updated</span>
+                        <span class="meta-value">May 15, 2025</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Revenue</span>
+                        <span class="meta-value">$5,240</span>
+                    </div>
+                </div>
+
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active"><i class="fas fa-cog"></i> Course Settings</a></li>
+                    <li><a href="#"><i class="fas fa-play-circle"></i> Curriculum</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> Performance</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Students</a></li>
+                    <li><a href="#"><i class="fas fa-comment-dots"></i> Reviews</a></li>
+                    <li><a href="#"><i class="fas fa-certificate"></i> Certificates</a></li>
+                    <li><a href="#"><i class="fas fa-dollar-sign"></i> Pricing</a></li>
+                    <li><a href="#"><i class="fas fa-share-alt"></i> Promotions</a></li>
+                </ul>
+            </div>
+
+            <!-- Course Content -->
+            <div class="course-content">
+                <div class="content-header">
+                    <h2 class="content-title">Course Settings</h2>
+                    <div class="content-actions">
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Course Form -->
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course-title" class="form-label">Course Title</label>
+                            <input type="text" id="course-title" class="form-control"
+                                value="Modern Web Development in 2025">
+                        </div>
+                        <div class="form-group">
+                            <label for="course-subtitle" class="form-label">Subtitle</label>
+                            <input type="text" id="course-subtitle" class="form-control"
+                                value="Master the latest web technologies and frameworks">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="course-description" class="form-label">Description</label>
+                        <textarea id="course-description"
+                            class="form-control form-textarea">This comprehensive course will take you from beginner to advanced in modern web development. Learn HTML5, CSS3, JavaScript (ES2025), React 22, Next.js 15, and more. Build real-world projects and deploy them to production.</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course-category" class="form-label">Category</label>
+                            <select id="course-category" class="form-control form-select">
+                                <option>Technology</option>
+                                <option selected>Web Development</option>
+                                <option>Mobile Development</option>
+                                <option>Data Science</option>
+                                <option>Design</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-level" class="form-label">Difficulty Level</label>
+                            <select id="course-level" class="form-control form-select">
+                                <option>Beginner</option>
+                                <option selected>Intermediate</option>
+                                <option>Advanced</option>
+                                <option>All Levels</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Course Thumbnail</label>
+                        <div class="file-upload">
+                            <button type="button" class="file-upload-btn">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload New Thumbnail
+                            </button>
+                            <input type="file" class="file-upload-input">
+                            <p class="file-upload-text">Recommended size: 1280x720 pixels</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="course-language" class="form-label">Language</label>
+                        <select id="course-language" class="form-control form-select">
+                            <option selected>English</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                            <option>German</option>
+                            <option>Chinese</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Course Requirements</label>
+                        <textarea class="form-control form-textarea">- Basic understanding of HTML and CSS
+- Familiarity with any programming language (helpful but not required)
+- A computer with internet access</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What Students Will Learn</label>
+                        <textarea class="form-control form-textarea">- Build modern, responsive websites
+- Create interactive web applications with React
+- Use Next.js for server-side rendering
+- Implement authentication and authorization
+- Deploy applications to production
+- Optimize performance and accessibility</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Course Options</label>
+                        <div class="form-check">
+                            <input type="checkbox" id="featured" class="form-check-input" checked>
+                            <label for="featured" class="form-check-label">Featured Course</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="certificate" class="form-check-input" checked>
+                            <label for="certificate" class="form-check-label">Offer Certificate</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="discussions" class="form-check-input">
+                            <label for="discussions" class="form-check-label">Enable Discussions</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="downloadable" class="form-check-input" checked>
+                            <label for="downloadable" class="form-check-label">Downloadable Resources</label>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Curriculum Section -->
+                <div class="curriculum-section">
+                    <div class="section-header">
+                        <h3 class="section-title">Curriculum</h3>
+                        <div class="section-actions">
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fas fa-plus"></i> Add Module
+                            </button>
+                            <button class="btn btn-secondary btn-sm">
+                                <i class="fas fa-plus"></i> Add Lesson
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="module-card">
+                        <div class="module-header">
+                            <h4 class="module-title">Introduction to Web Development</h4>
+                            <div class="module-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item">
+                            <div class="lesson-info">
+                                <div class="lesson-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div>
+                                    <div class="lesson-title">Welcome to the Course</div>
+                                    <div class="lesson-duration">5:22</div>
+                                </div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item">
+                            <div class="lesson-info">
+                                <div class="lesson-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div>
+                                    <div class="lesson-title">Course Overview & Resources</div>
+                                    <div class="lesson-duration">PDF</div>
+                                </div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item">
+                            <div class="lesson-info">
+                                <div class="lesson-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div>
+                                    <div class="lesson-title">Setting Up Your Development Environment</div>
+                                    <div class="lesson-duration">12:45</div>
+                                </div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="module-card">
+                        <div class="module-header">
+                            <h4 class="module-title">HTML5 Fundamentals</h4>
+                            <div class="module-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item">
+                            <div class="lesson-info">
+                                <div class="lesson-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div>
+                                    <div class="lesson-title">HTML5 Document Structure</div>
+                                    <div class="lesson-duration">8:15</div>
+                                </div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item">
+                            <div class="lesson-info">
+                                <div class="lesson-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div>
+                                    <div class="lesson-title">Semantic HTML Elements</div>
+                                    <div class="lesson-duration">10:30</div>
+                                </div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item">
+                            <div class="lesson-info">
+                                <div class="lesson-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <div>
+                                    <div class="lesson-title">Practice Project: Build a Blog Page</div>
+                                    <div class="lesson-duration">Exercise</div>
+                                </div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Actions -->
+                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete Course
+                    </button>
+                </div>
+            </div>
+        </div>
+{% endblock %}

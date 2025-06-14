@@ -1,0 +1,229 @@
+{% extends "users/base_dashboard.html" %}
+
+{% block title %}Create Course – EduSphere{% endblock %}
+
+{% block header %}
+  <header class="header">
+    <div class="header-title">
+      <h1>Create New Course</h1>
+      <p>Enter the details below</p>
+    </div>
+   <div class="header-actions">
+                <button class="btn btn-secondary">
+                    <i class="fas fa-eye"></i> Preview
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Draft
+                </button>
+            </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+    <!-- Course Creation Form -->
+        <div class="course-creation">
+            <!-- Main Form Section -->
+            <div class="form-column">
+                <!-- Course Basics Section -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-info-circle"></i> Course Basics
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="course-title" class="form-label required">Course Title</label>
+                        <input type="text" id="course-title" class="form-control" placeholder="e.g. Advanced JavaScript Patterns">
+                        <p class="form-helper">Keep it concise yet descriptive (60 characters or less)</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course-subtitle" class="form-label">Subtitle</label>
+                        <input type="text" id="course-subtitle" class="form-control" placeholder="What will students learn in your course?">
+                        <p class="form-helper">A brief summary of your course (120 characters or less)</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course-description" class="form-label required">Description</label>
+                        <textarea id="course-description" class="form-control form-textarea" placeholder="Describe your course in detail"></textarea>
+                        <p class="form-helper">This will appear on your course landing page</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course-category" class="form-label required">Category</label>
+                        <select id="course-category" class="form-control form-select">
+                            <option value="">Select a category</option>
+                            <option value="web-development">Web Development</option>
+                            <option value="mobile-development">Mobile Development</option>
+                            <option value="data-science">Data Science</option>
+                            <option value="business">Business</option>
+                            <option value="design">Design</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Course Media Section -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-images"></i> Course Media
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Course Thumbnail</label>
+                        <div class="file-upload" id="thumbnail-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Upload your course thumbnail</p>
+                            <small>Recommended size: 1280×720 pixels (16:9 aspect ratio)</small>
+                        </div>
+                        <div class="preview-container" id="thumbnail-preview">
+                            <img src="" alt="Course Thumbnail Preview" class="preview-image">
+                            <button class="remove-image">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Promotional Video (Optional)</label>
+                        <div class="file-upload" id="video-upload">
+                            <i class="fas fa-video"></i>
+                            <p>Upload your course trailer</p>
+                            <small>MP4 format, max 2 minutes, 1080p recommended</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Curriculum Section -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-list-ol"></i> Curriculum
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Course Structure</label>
+                        <div id="curriculum-builder">
+                            <!-- This would be dynamically populated with JavaScript -->
+                            <div style="text-align: center; padding: 2rem; border: 2px dashed #E2E8F0; border-radius: var(--border-radius);">
+                                <i class="fas fa-plus-circle" style="font-size: 1.5rem; color: var(--sidebar-accent); margin-bottom: 1rem;"></i>
+                                <p>Add your first section</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pricing Section -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-tag"></i> Pricing
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="course-price" class="form-label required">Course Price</label>
+                        <div class="price-input">
+                            <span class="currency">$</span>
+                            <input type="number" id="course-price" class="form-control" placeholder="0.00" min="0" step="0.01">
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="free-course" class="checkbox-input">
+                        <label for="free-course" class="checkbox-label">This is a free course</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="discount-course" class="checkbox-input">
+                        <label for="discount-course" class="checkbox-label">Offer discount</label>
+                    </div>
+                </div>
+                
+                <!-- Additional Settings -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-cog"></i> Additional Settings
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="course-language" class="form-label">Language</label>
+                        <select id="course-language" class="form-control form-select">
+                            <option value="english">English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                            <option value="chinese">Chinese</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course-level" class="form-label">Difficulty Level</label>
+                        <select id="course-level" class="form-control form-select">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="all-levels">All Levels</option>
+                        </select>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="certificate" class="checkbox-input" checked>
+                        <label for="certificate" class="checkbox-label">Include certificate of completion</label>
+                    </div>
+                </div>
+                
+                <!-- Submit Section -->
+                <div class="form-group" style="margin-top: 2rem;">
+                    <button class="btn btn-primary" style="width: 100%; padding: 1rem;">
+                        <i class="fas fa-rocket"></i> Publish Course
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Course Preview Card -->
+            <div class="preview-card">
+                <div class="preview-header">
+                    <h3 class="preview-title">Course Preview</h3>
+                    <p class="preview-subtitle">How your course will appear to students</p>
+                </div>
+                
+                <div class="preview-body">
+                    <div class="preview-thumbnail">
+                        <img src="" alt="Course Thumbnail" id="preview-thumbnail-img">
+                        <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-secondary);">
+                            <i class="fas fa-image" style="font-size: 2rem;"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-meta">
+                        <div class="preview-meta-item">
+                            <span class="preview-meta-label">Title:</span>
+                            <span class="preview-meta-value" id="preview-title">Untitled Course</span>
+                        </div>
+                        <div class="preview-meta-item">
+                            <span class="preview-meta-label">Instructor:</span>
+                            <span class="preview-meta-value">Sarah Johnson</span>
+                        </div>
+                        <div class="preview-meta-item">
+                            <span class="preview-meta-label">Category:</span>
+                            <span class="preview-meta-value" id="preview-category">Not selected</span>
+                        </div>
+                        <div class="preview-meta-item">
+                            <span class="preview-meta-label">Level:</span>
+                            <span class="preview-meta-value" id="preview-level">Beginner</span>
+                        </div>
+                        <div class="preview-meta-item">
+                            <span class="preview-meta-label">Price:</span>
+                            <span class="preview-meta-value" id="preview-price">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Draft
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
