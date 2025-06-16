@@ -8,19 +8,21 @@
       <h1>Create New Course</h1>
       <p>Enter the details below</p>
     </div>
-   <div class="header-actions">
-                <button class="btn btn-secondary">
-                    <i class="fas fa-eye"></i> Preview
-                </button>
-                <button class="btn btn-primary">
-                    <i class="fas fa-save"></i> Save Draft
-                </button>
-            </div>
+    <div class="header-actions">
+        <button class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Preview
+        </button>
+        <button class="btn btn-primary">
+            <i class="fas fa-save"></i> Save Draft
+        </button>
+    </div>
   </header>
 {% endblock %}
 
 {% block content %}
     <!-- Course Creation Form -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="course-creation">
             <!-- Main Form Section -->
             <div class="form-column">
@@ -31,34 +33,38 @@
                     </h3>
                     
                     <div class="form-group">
-                        <label for="course-title" class="form-label required">Course Title</label>
-                        <input type="text" id="course-title" class="form-control" placeholder="e.g. Advanced JavaScript Patterns">
+                        {{ form.title.label_tag }}
+                        {{ form.title }}
                         <p class="form-helper">Keep it concise yet descriptive (60 characters or less)</p>
+                        {% if form.title.errors %}
+                            <div class="error">{{ form.title.errors }}</div>
+                        {% endif %}
                     </div>
                     
                     <div class="form-group">
-                        <label for="course-subtitle" class="form-label">Subtitle</label>
-                        <input type="text" id="course-subtitle" class="form-control" placeholder="What will students learn in your course?">
+                        {{ form.subtitle.label_tag }}
+                        {{ form.subtitle }}
                         <p class="form-helper">A brief summary of your course (120 characters or less)</p>
+                        {% if form.subtitle.errors %}
+                            <div class="error">{{ form.subtitle.errors }}</div>
+                        {% endif %}
                     </div>
                     
                     <div class="form-group">
-                        <label for="course-description" class="form-label required">Description</label>
-                        <textarea id="course-description" class="form-control form-textarea" placeholder="Describe your course in detail"></textarea>
+                        {{ form.description.label_tag }}
+                        {{ form.description }}
                         <p class="form-helper">This will appear on your course landing page</p>
+                        {% if form.description.errors %}
+                            <div class="error">{{ form.description.errors }}</div>
+                        {% endif %}
                     </div>
                     
                     <div class="form-group">
-                        <label for="course-category" class="form-label required">Category</label>
-                        <select id="course-category" class="form-control form-select">
-                            <option value="">Select a category</option>
-                            <option value="web-development">Web Development</option>
-                            <option value="mobile-development">Mobile Development</option>
-                            <option value="data-science">Data Science</option>
-                            <option value="business">Business</option>
-                            <option value="design">Design</option>
-                            <option value="marketing">Marketing</option>
-                        </select>
+                        {{ form.category.label_tag }}
+                        {{ form.category }}
+                        {% if form.category.errors %}
+                            <div class="error">{{ form.category.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
                 
@@ -70,11 +76,11 @@
                     
                     <div class="form-group">
                         <label class="form-label required">Course Thumbnail</label>
-                        <div class="file-upload" id="thumbnail-upload">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Upload your course thumbnail</p>
-                            <small>Recommended size: 1280×720 pixels (16:9 aspect ratio)</small>
-                        </div>
+                        {{ form.thumbnail }}
+                        <p class="form-helper">Recommended size: 1280×720 pixels (16:9 aspect ratio)</p>
+                        {% if form.thumbnail.errors %}
+                            <div class="error">{{ form.thumbnail.errors }}</div>
+                        {% endif %}
                         <div class="preview-container" id="thumbnail-preview">
                             <img src="" alt="Course Thumbnail Preview" class="preview-image">
                             <button class="remove-image">
@@ -85,11 +91,11 @@
                     
                     <div class="form-group">
                         <label class="form-label">Promotional Video (Optional)</label>
-                        <div class="file-upload" id="video-upload">
-                            <i class="fas fa-video"></i>
-                            <p>Upload your course trailer</p>
-                            <small>MP4 format, max 2 minutes, 1080p recommended</small>
-                        </div>
+                        {{ form.promo_video }}
+                        <p class="form-helper">MP4 format, max 2 minutes, 1080p recommended</p>
+                        {% if form.promo_video.errors %}
+                            <div class="error">{{ form.promo_video.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
                 
@@ -102,11 +108,57 @@
                     <div class="form-group">
                         <label class="form-label required">Course Structure</label>
                         <div id="curriculum-builder">
-                            <!-- This would be dynamically populated with JavaScript -->
-                            <div style="text-align: center; padding: 2rem; border: 2px dashed #E2E8F0; border-radius: var(--border-radius);">
-                                <i class="fas fa-plus-circle" style="font-size: 1.5rem; color: var(--sidebar-accent); margin-bottom: 1rem;"></i>
-                                <p>Add your first section</p>
-                            </div>
+                            {{ section_formset.management_form }}
+                            {% for form in section_formset %}
+                                <div class="section-form">
+                                    {{ form.id }}
+                                    <div class="form-group">
+                                        {{ form.order.label_tag }}
+                                        {{ form.order }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.title.label_tag }}
+                                        {{ form.title }}
+                                    </div>
+                                    {% if form.DELETE %}
+                                        <div class="form-group">
+                                            {{ form.DELETE.label_tag }}
+                                            {{ form.DELETE }}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <!-- Lectures for this section -->
+                                    {{ form.lecture_formset.management_form }}
+                                    {% for lecture_form in form.lecture_formset %}
+                                        <div class="lecture-form">
+                                            {{ lecture_form.id }}
+                                            <div class="form-group">
+                                                {{ lecture_form.order.label_tag }}
+                                                {{ lecture_form.order }}
+                                            </div>
+                                            <div class="form-group">
+                                                {{ lecture_form.title.label_tag }}
+                                                {{ lecture_form.title }}
+                                            </div>
+                                            <div class="form-group">
+                                                {{ lecture_form.content.label_tag }}
+                                                {{ lecture_form.content }}
+                                            </div>
+                                            {% if lecture_form.DELETE %}
+                                                <div class="form-group">
+                                                    {{ lecture_form.DELETE.label_tag }}
+                                                    {{ lecture_form.DELETE }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% empty %}
+                                <div style="text-align: center; padding: 2rem; border: 2px dashed #E2E8F0; border-radius: var(--border-radius);">
+                                    <i class="fas fa-plus-circle" style="font-size: 1.5rem; color: var(--sidebar-accent); margin-bottom: 1rem;"></i>
+                                    <p>Add your first section</p>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -118,21 +170,33 @@
                     </h3>
                     
                     <div class="form-group">
-                        <label for="course-price" class="form-label required">Course Price</label>
+                        {{ form.price.label_tag }}
                         <div class="price-input">
                             <span class="currency">$</span>
-                            <input type="number" id="course-price" class="form-control" placeholder="0.00" min="0" step="0.01">
+                            {{ form.price }}
                         </div>
+                        {% if form.price.errors %}
+                            <div class="error">{{ form.price.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.discount_price.label_tag }}
+                        <div class="price-input">
+                            <span class="currency">$</span>
+                            {{ form.discount_price }}
+                        </div>
+                        {% if form.discount_price.errors %}
+                            <div class="error">{{ form.discount_price.errors }}</div>
+                        {% endif %}
                     </div>
                     
                     <div class="checkbox-group">
-                        <input type="checkbox" id="free-course" class="checkbox-input">
-                        <label for="free-course" class="checkbox-label">This is a free course</label>
-                    </div>
-                    
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="discount-course" class="checkbox-input">
-                        <label for="discount-course" class="checkbox-label">Offer discount</label>
+                        {{ form.published }}
+                        {{ form.published.label_tag }}
+                        {% if form.published.errors %}
+                            <div class="error">{{ form.published.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
                 
@@ -143,35 +207,25 @@
                     </h3>
                     
                     <div class="form-group">
-                        <label for="course-language" class="form-label">Language</label>
-                        <select id="course-language" class="form-control form-select">
-                            <option value="english">English</option>
-                            <option value="spanish">Spanish</option>
-                            <option value="french">French</option>
-                            <option value="german">German</option>
-                            <option value="chinese">Chinese</option>
-                        </select>
+                        {{ form.language.label_tag }}
+                        {{ form.language }}
+                        {% if form.language.errors %}
+                            <div class="error">{{ form.language.errors }}</div>
+                        {% endif %}
                     </div>
                     
                     <div class="form-group">
-                        <label for="course-level" class="form-label">Difficulty Level</label>
-                        <select id="course-level" class="form-control form-select">
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                            <option value="all-levels">All Levels</option>
-                        </select>
-                    </div>
-                    
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="certificate" class="checkbox-input" checked>
-                        <label for="certificate" class="checkbox-label">Include certificate of completion</label>
+                        {{ form.difficulty.label_tag }}
+                        {{ form.difficulty }}
+                        {% if form.difficulty.errors %}
+                            <div class="error">{{ form.difficulty.errors }}</div>
+                        {% endif %}
                     </div>
                 </div>
                 
                 <!-- Submit Section -->
                 <div class="form-group" style="margin-top: 2rem;">
-                    <button class="btn btn-primary" style="width: 100%; padding: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">
                         <i class="fas fa-rocket"></i> Publish Course
                     </button>
                 </div>
@@ -226,4 +280,41 @@
                 </div>
             </div>
         </div>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // JavaScript to handle thumbnail preview and other dynamic behaviors
+        document.getElementById('id_thumbnail').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.getElementById('preview-thumbnail-img');
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Update preview fields when form inputs change
+        document.getElementById('id_title').addEventListener('input', function() {
+            document.getElementById('preview-title').textContent = this.value || 'Untitled Course';
+        });
+
+        document.getElementById('id_category').addEventListener('change', function() {
+            document.getElementById('preview-category').textContent = this.options[this.selectedIndex].text || 'Not selected';
+        });
+
+        document.getElementById('id_difficulty').addEventListener('change', function() {
+            document.getElementById('preview-level').textContent = this.options[this.selectedIndex].text || 'Beginner';
+        });
+
+        document.getElementById('id_price').addEventListener('input', function() {
+            document.getElementById('preview-price').textContent = '$' + (this.value || '0.00');
+        });
+
+        // Additional JavaScript for form validation, preview updates, etc.
+    </script>
 {% endblock %}

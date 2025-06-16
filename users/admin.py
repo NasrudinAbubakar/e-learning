@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Instructor, Course, Review
+from .models import Instructor, Course, Review , Category
 
 @admin.register(Instructor)
 class InstructorAdmin(admin.ModelAdmin):
@@ -14,3 +14,8 @@ class CourseAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('course', 'student', 'rating', 'created_at')
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}
