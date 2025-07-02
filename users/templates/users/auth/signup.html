@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - EduSphere</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --bg-light: #F8FAFC;
+            --bg-white: #FFFFFF;
+            --border-color: #E2E8F0;
+            --error: #EF4444;
+            --success: #10B981;
+            --border-radius: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .auth-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1000px;
+            width: 100%;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .auth-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            transform: rotate(30deg);
+        }
+
+        .auth-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .auth-logo i {
+            font-size: 1.75rem;
+        }
+
+        .auth-hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .auth-hero p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .auth-features {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .auth-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .auth-features i {
+            background-color: rgba(255,255,255,0.2);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-form-container {
+            background-color: var(--bg-white);
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-form-header {
+            margin-bottom: 2rem;
+        }
+
+        .auth-form-header h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-form-header p {
+            color: var(--text-secondary);
+        }
+
+        .auth-form-header p a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-form-header p a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9375rem;
+        }
+
+        .form-label.required::after {
+            content: '*';
+            color: var(--error);
+            margin-left: 0.25rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            font-size: 0.9375rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon .form-control {
+            padding-left: 3rem;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .social-login {
+            margin-top: 2rem;
+        }
+
+        .social-login .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .social-login .divider::before,
+        .social-login .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 0 1rem;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-white);
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            background-color: var(--bg-light);
+        }
+
+        .social-btn i {
+            font-size: 1.25rem;
+        }
+
+        .google-btn {
+            color: #DB4437;
+        }
+
+        .facebook-btn {
+            color: #4267B2;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .error-message i {
+            font-size: 1rem;
+        }
+
+        .success-message {
+            color: var(--success);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .success-message i {
+            font-size: 1rem;
+        }
+
+        .account-type-selector {
+            display: flex;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .account-type-option {
+            flex: 1;
+            text-align: center;
+            padding: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .account-type-option input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .account-type-option label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .account-type-option i {
+            font-size: 1.25rem;
+        }
+
+        .account-type-option:not(:last-child) {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .account-type-option:hover {
+            background-color: var(--bg-light);
+        }
+
+        .account-type-option input:checked + label {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .auth-container {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-hero {
+                display: none;
+            }
+
+            .auth-form-container {
+                padding: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+
+            .auth-form-container {
+                padding: 1.5rem;
+            }
+
+            .social-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-hero">
+            <div class="auth-hero-content">
+                <div class="auth-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>EduSphere</span>
+                </div>
+                <h1>Start your learning journey today</h1>
+                <p>Join thousands of students and instructors who are already transforming their lives through education.</p>
+                <ul class="auth-features">
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Access to 1000+ courses</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Learn from industry experts</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Earn certificates for your achievements</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="auth-form-container">
+            <div class="auth-form-header">
+                <h2>Create your account</h2>
+                <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+            </div>
+
+            <form method="post" class="auth-form">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="account-type-selector">
+                    <div class="account-type-option">
+                        <input type="radio" id="student" name="account_type" value="student" checked>
+                        <label for="student">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Student</span>
+                        </label>
+                    </div>
+                    <div class="account-type-option">
+                        <input type="radio" id="instructor" name="account_type" value="instructor">
+                        <label for="instructor">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Instructor</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name" class="form-label required">First name</label>
+                        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="John" required>
+                        {% if form.first_name.errors %}
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                {{ form.first_name.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name" class="form-label required">Last name</label>
+                        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Doe" required>
+                        {% if form.last_name.errors %}
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                {{ form.last_name.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label required">Email address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
+                    </div>
+                    {% if form.email.errors %}
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ form.email.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password1" class="form-label required">Password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password1" name="password1" class="form-control" placeholder="••••••••" required>
+                        </div>
+                        {% if form.password1.errors %}
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                {{ form.password1.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="password2" class="form-label required">Confirm password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password2" name="password2" class="form-control" placeholder="••••••••" required>
+                        </div>
+                        {% if form.password2.errors %}
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                {{ form.password2.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" class="checkbox-input" required>
+                        <label for="terms" class="checkbox-label">I agree to the <a href="#" style="color: var(--primary);">Terms of Service</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a></label>
+                    </div>
+                    {% if form.terms.errors %}
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ form.terms.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create account</button>
+            </form>
+
+            <div class="social-login">
+                <div class="divider">Or sign up with</div>
+                <div class="social-buttons">
+                    <button type="button" class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                        <span>Google</span>
+                    </button>
+                    <button type="button" class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

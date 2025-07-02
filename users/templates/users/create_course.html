@@ -1,13 +1,205 @@
 {% extends "users/base_dashboard.html" %}
+{% load static %}
+{% load users_extras %}
 
 {% block title %}Create Course – EduSphere{% endblock %}
 
+{% block extra_css %}
+<style>
+    /* Additional styles specific to course creation */
+    .course-creation {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 2rem;
+    }
+
+    .form-section {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 1.5rem;
+    }
+
+    .form-section-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .form-section-title i {
+        color: var(--sidebar-accent);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .file-upload {
+        display: none;
+    }
+
+    .file-upload-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .file-upload-btn {
+        width: 100%;
+        padding: 2rem;
+        border: 2px dashed #E2E8F0;
+        border-radius: var(--border-radius);
+        background-color: #F8FAFC;
+        text-align: center;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .file-upload-btn:hover {
+        border-color: #CBD5E1;
+        background-color: #F1F5F9;
+    }
+
+    .file-upload-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .file-upload-text {
+        margin-top: 0.5rem;
+        font-size: 0.8125rem;
+        color: var(--text-secondary);
+    }
+
+    .preview-container {
+        position: relative;
+        margin-top: 1rem;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        display: none;
+    }
+
+    .preview-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .remove-image {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .remove-image:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    /* Curriculum Builder Styles */
+    .section-form {
+        background-color: #F8FAFC;
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid #E2E8F0;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .section-header h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .lectures-container {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: white;
+        border-radius: var(--border-radius);
+        border: 1px solid #E2E8F0;
+    }
+
+    .lectures-container h5 {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+    }
+
+    .lecture-form {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        background-color: #F8FAFC;
+        border-radius: 8px;
+        border: 1px dashed #E2E8F0;
+    }
+
+    .add-lecture, .add-section {
+        margin-top: 1rem;
+    }
+
+    .remove-section, .remove-lecture {
+        margin-top: 0.5rem;
+        background-color: var(--accent-red);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .remove-section:hover, .remove-lecture:hover {
+        background-color: #DC2626;
+    }
+
+    @media (max-width: 768px) {
+        .course-creation {
+            grid-template-columns: 1fr;
+        }
+        
+        .preview-card {
+            order: -1;
+            margin-bottom: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block header %}
-  <header class="header">
+<header class="header">
     <div class="header-title">
-      <h1>Create New Course</h1>
-      <p>Enter the details below</p>
+        <h1>Create New Course</h1>
+        <p>Fill in the details below to create your new course</p>
     </div>
+    
     <div class="header-actions">
         <button class="btn btn-secondary">
             <i class="fas fa-eye"></i> Preview
@@ -16,305 +208,521 @@
             <i class="fas fa-save"></i> Save Draft
         </button>
     </div>
-  </header>
+</header>
 {% endblock %}
 
 {% block content %}
-    <!-- Course Creation Form -->
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="course-creation">
-            <!-- Main Form Section -->
-            <div class="form-column">
-                <!-- Course Basics Section -->
-                <div class="form-section">
-                    <h3 class="form-section-title">
-                        <i class="fas fa-info-circle"></i> Course Basics
-                    </h3>
-                    
-                    <div class="form-group">
-                        {{ form.title.label_tag }}
-                        {{ form.title }}
-                        <p class="form-helper">Keep it concise yet descriptive (60 characters or less)</p>
-                        {% if form.title.errors %}
-                            <div class="error">{{ form.title.errors }}</div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="form-group">
-                        {{ form.subtitle.label_tag }}
-                        {{ form.subtitle }}
-                        <p class="form-helper">A brief summary of your course (120 characters or less)</p>
-                        {% if form.subtitle.errors %}
-                            <div class="error">{{ form.subtitle.errors }}</div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="form-group">
-                        {{ form.description.label_tag }}
-                        {{ form.description }}
-                        <p class="form-helper">This will appear on your course landing page</p>
-                        {% if form.description.errors %}
-                            <div class="error">{{ form.description.errors }}</div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="form-group">
-                        {{ form.category.label_tag }}
-                        {{ form.category }}
-                        {% if form.category.errors %}
-                            <div class="error">{{ form.category.errors }}</div>
-                        {% endif %}
-                    </div>
+<form method="post" enctype="multipart/form-data" id="course-creation-form">
+    {% csrf_token %}
+    <div class="course-creation">
+        <!-- Main Form Section -->
+        <div class="form-column">
+            <!-- Course Basics Section -->
+            <div class="form-section">
+                <h3 class="form-section-title">
+                    <i class="fas fa-info-circle"></i> Course Basics
+                </h3>
+                
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}" class="form-label required">{{ form.title.label }}</label>
+                    {{ form.title }}
+                    <p class="form-helper">{{ form.title.help_text }}</p>
+                    {% if form.title.errors %}
+                        <div class="error">{{ form.title.errors }}</div>
+                    {% endif %}
                 </div>
                 
-                <!-- Course Media Section -->
-                <div class="form-section">
-                    <h3 class="form-section-title">
-                        <i class="fas fa-images"></i> Course Media
-                    </h3>
-                    
-                    <div class="form-group">
-                        <label class="form-label required">Course Thumbnail</label>
-                        {{ form.thumbnail }}
-                        <p class="form-helper">Recommended size: 1280×720 pixels (16:9 aspect ratio)</p>
-                        {% if form.thumbnail.errors %}
-                            <div class="error">{{ form.thumbnail.errors }}</div>
-                        {% endif %}
-                        <div class="preview-container" id="thumbnail-preview">
-                            <img src="" alt="Course Thumbnail Preview" class="preview-image">
-                            <button class="remove-image">
-                                <i class="fas fa-times"></i>
-                            </button>
+                <div class="form-group">
+                    <label for="{{ form.subtitle.id_for_label }}" class="form-label">{{ form.subtitle.label }}</label>
+                    {{ form.subtitle }}
+                    <p class="form-helper">{{ form.subtitle.help_text }}</p>
+                    {% if form.subtitle.errors %}
+                        <div class="error">{{ form.subtitle.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.objectives.id_for_label }}" class="form-label">{{ form.objectives.label }}</label>
+                    {{ form.objectives }}
+                    <p class="form-helper">{{ form.objectives.help_text }}</p>
+                    {% if form.objectives.errors %}
+                        <div class="error">{{ form.objectives.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.requirements.id_for_label }}" class="form-label">{{ form.requirements.label }}</label>
+                    {{ form.requirements }}
+                    <p class="form-helper">{{ form.requirements.help_text }}</p>
+                    {% if form.requirements.errors %}
+                        <div class="error">{{ form.requirements.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}" class="form-label required">{{ form.description.label }}</label>
+                    {{ form.description }}
+                    <p class="form-helper">{{ form.description.help_text }}</p>
+                    {% if form.description.errors %}
+                        <div class="error">{{ form.description.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}" class="form-label required">{{ form.category.label }}</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                        <div class="error">{{ form.category.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Course Media Section -->
+            <div class="form-section">
+                <h3 class="form-section-title">
+                    <i class="fas fa-images"></i> Course Media
+                </h3>
+                
+                <div class="form-group">
+                    <label class="form-label required">Course Thumbnail</label>
+                    <div class="file-upload-wrapper">
+                        <div class="file-upload-btn" id="thumbnail-upload-btn">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 1.5rem; color: var(--sidebar-accent); margin-bottom: 1rem;"></i>
+                            <p>Upload your course thumbnail</p>
+                            <small>Recommended size: 1280×720 pixels (16:9 aspect ratio)</small>
                         </div>
+                        {{ form.thumbnail }}
                     </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Promotional Video (Optional)</label>
-                        {{ form.promo_video }}
-                        <p class="form-helper">MP4 format, max 2 minutes, 1080p recommended</p>
-                        {% if form.promo_video.errors %}
-                            <div class="error">{{ form.promo_video.errors }}</div>
-                        {% endif %}
+                    <div class="preview-container" id="thumbnail-preview">
+                        <img src="" alt="Course Thumbnail Preview" class="preview-image">
+                        <button type="button" class="remove-image">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
+                    {% if form.thumbnail.errors %}
+                        <div class="error">{{ form.thumbnail.errors }}</div>
+                    {% endif %}
                 </div>
                 
-                <!-- Curriculum Section -->
-                <div class="form-section">
-                    <h3 class="form-section-title">
-                        <i class="fas fa-list-ol"></i> Curriculum
-                    </h3>
-                    
-                    <div class="form-group">
-                        <label class="form-label required">Course Structure</label>
-                        <div id="curriculum-builder">
-                            {{ section_formset.management_form }}
-                            {% for form in section_formset %}
-                                <div class="section-form">
-                                    {{ form.id }}
-                                    <div class="form-group">
-                                        {{ form.order.label_tag }}
-                                        {{ form.order }}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form.title.label_tag }}
-                                        {{ form.title }}
-                                    </div>
-                                    {% if form.DELETE %}
-                                        <div class="form-group">
-                                            {{ form.DELETE.label_tag }}
-                                            {{ form.DELETE }}
-                                        </div>
-                                    {% endif %}
-                                    
-                                    <!-- Lectures for this section -->
-                                    {{ form.lecture_formset.management_form }}
-                                    {% for lecture_form in form.lecture_formset %}
-                                        <div class="lecture-form">
-                                            {{ lecture_form.id }}
-                                            <div class="form-group">
-                                                {{ lecture_form.order.label_tag }}
-                                                {{ lecture_form.order }}
-                                            </div>
-                                            <div class="form-group">
-                                                {{ lecture_form.title.label_tag }}
-                                                {{ lecture_form.title }}
-                                            </div>
-                                            <div class="form-group">
-                                                {{ lecture_form.content.label_tag }}
-                                                {{ lecture_form.content }}
-                                            </div>
-                                            {% if lecture_form.DELETE %}
+                <div class="form-group">
+                    <label class="form-label">Promotional Video (Optional)</label>
+                    <div class="file-upload-wrapper">
+                        <div class="file-upload-btn" id="video-upload-btn">
+                            <i class="fas fa-video" style="font-size: 1.5rem; color: var(--sidebar-accent); margin-bottom: 1rem;"></i>
+                            <p>Upload your course trailer</p>
+                            <small>MP4 format, max 2 minutes, 1080p recommended</small>
+                        </div>
+                        {{ form.promo_video }}
+                    </div>
+                    {% if form.promo_video.errors %}
+                        <div class="error">{{ form.promo_video.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Curriculum Section -->
+            <div class="form-section">
+                <h3 class="form-section-title">
+                    <i class="fas fa-list-ol"></i> Curriculum
+                </h3>
+                <div class="form-group">
+                    <label class="form-label required">Course Structure</label>
+                    <div id="curriculum-builder">
+                        {{ section_formset.management_form }}
+                        {% for section_form in section_formset %}
+                            <div class="section-form" data-section-index="{{ forloop.counter0 }}">
+                                {{ section_form.id }}
+                                <div class="form-group">
+                                    {{ section_form.order.label_tag }}
+                                    {{ section_form.order }}
+                                </div>
+                                <div class="form-group">
+                                    {{ section_form.title.label_tag }}
+                                    {{ section_form.title }}
+                                </div>
+                                <div class="form-group">
+                                    {{ section_form.DELETE.label_tag }}
+                                    {{ section_form.DELETE }}
+                                </div>
+                                
+                                <!-- Lectures for this section -->
+                                <div class="lectures-container">
+                                    <h5>Lectures</h5>
+                                    {% with lecture_formset=lecture_formsets|index:forloop.counter0 %}
+                                        {{ lecture_formset.management_form }}
+                                        {% for lecture_form in lecture_formset %}
+                                            <div class="lecture-form">
+                                                {{ lecture_form.id }}
+                                                <div class="form-group">
+                                                    {{ lecture_form.order.label_tag }}
+                                                    {{ lecture_form.order }}
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ lecture_form.title.label_tag }}
+                                                    {{ lecture_form.title }}
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ lecture_form.content.label_tag }}
+                                                    {{ lecture_form.content }}
+                                                </div>
                                                 <div class="form-group">
                                                     {{ lecture_form.DELETE.label_tag }}
                                                     {{ lecture_form.DELETE }}
                                                 </div>
-                                            {% endif %}
-                                        </div>
-                                    {% endfor %}
+                                            </div>
+                                        {% endfor %}
+                                        <button type="button" class="btn btn-secondary add-lecture" data-section="{{ forloop.counter0 }}">
+                                            <i class="fas fa-plus"></i> Add Lecture
+                                        </button>
+                                    {% endwith %}
                                 </div>
-                            {% empty %}
-                                <div style="text-align: center; padding: 2rem; border: 2px dashed #E2E8F0; border-radius: var(--border-radius);">
-                                    <i class="fas fa-plus-circle" style="font-size: 1.5rem; color: var(--sidebar-accent); margin-bottom: 1rem;"></i>
-                                    <p>Add your first section</p>
-                                </div>
-                            {% endfor %}
-                        </div>
+                                <button type="button" class="btn btn-danger remove-section">
+                                    <i class="fas fa-trash"></i> Remove Section
+                                </button>
+                            </div>
+                        {% endfor %}
+                        <button type="button" id="add-section" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Section
+                        </button>
                     </div>
                 </div>
-                
-                <!-- Pricing Section -->
-                <div class="form-section">
-                    <h3 class="form-section-title">
-                        <i class="fas fa-tag"></i> Pricing
-                    </h3>
-                    
-                    <div class="form-group">
-                        {{ form.price.label_tag }}
-                        <div class="price-input">
-                            <span class="currency">$</span>
-                            {{ form.price }}
-                        </div>
-                        {% if form.price.errors %}
-                            <div class="error">{{ form.price.errors }}</div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="form-group">
-                        {{ form.discount_price.label_tag }}
-                        <div class="price-input">
-                            <span class="currency">$</span>
-                            {{ form.discount_price }}
-                        </div>
-                        {% if form.discount_price.errors %}
-                            <div class="error">{{ form.discount_price.errors }}</div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="checkbox-group">
-                        {{ form.published }}
-                        {{ form.published.label_tag }}
-                        {% if form.published.errors %}
-                            <div class="error">{{ form.published.errors }}</div>
-                        {% endif %}
-                    </div>
+                <!-- Hidden empty forms for JS -->
+                <div id="empty-section-form" style="display:none;">
+                    {{ section_formset.empty_form }}
                 </div>
-                
-                <!-- Additional Settings -->
-                <div class="form-section">
-                    <h3 class="form-section-title">
-                        <i class="fas fa-cog"></i> Additional Settings
-                    </h3>
-                    
-                    <div class="form-group">
-                        {{ form.language.label_tag }}
-                        {{ form.language }}
-                        {% if form.language.errors %}
-                            <div class="error">{{ form.language.errors }}</div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="form-group">
-                        {{ form.difficulty.label_tag }}
-                        {{ form.difficulty }}
-                        {% if form.difficulty.errors %}
-                            <div class="error">{{ form.difficulty.errors }}</div>
-                        {% endif %}
-                    </div>
-                </div>
-                
-                <!-- Submit Section -->
-                <div class="form-group" style="margin-top: 2rem;">
-                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">
-                        <i class="fas fa-rocket"></i> Publish Course
-                    </button>
+                <div id="empty-lecture-form" style="display:none;">
+                    {{ lecture_formsets.0.empty_form }}
                 </div>
             </div>
             
-            <!-- Course Preview Card -->
-            <div class="preview-card">
-                <div class="preview-header">
-                    <h3 class="preview-title">Course Preview</h3>
-                    <p class="preview-subtitle">How your course will appear to students</p>
+            <!-- Pricing Section -->
+            <div class="form-section">
+                <h3 class="form-section-title">
+                    <i class="fas fa-tag"></i> Pricing
+                </h3>
+                
+                <div class="form-group">
+                    <label for="{{ form.price.id_for_label }}" class="form-label required">{{ form.price.label }}</label>
+                    <div class="price-input">
+                        <span class="currency">$</span>
+                        {{ form.price }}
+                    </div>
+                    {% if form.price.errors %}
+                        <div class="error">{{ form.price.errors }}</div>
+                    {% endif %}
                 </div>
                 
-                <div class="preview-body">
-                    <div class="preview-thumbnail">
-                        <img src="" alt="Course Thumbnail" id="preview-thumbnail-img">
-                        <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-secondary);">
-                            <i class="fas fa-image" style="font-size: 2rem;"></i>
-                        </div>
+                <div class="checkbox-group">
+                    {{ form.free_course }}
+                    <label for="{{ form.free_course.id_for_label }}" class="checkbox-label">{{ form.free_course.label }}</label>
+                    {% if form.free_course.errors %}
+                        <div class="error">{{ form.free_course.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="checkbox-group">
+                    {{ form.discount_option }}
+                    <label for="{{ form.discount_option.id_for_label }}" class="checkbox-label">{{ form.discount_option.label }}</label>
+                    {% if form.discount_option.errors %}
+                        <div class="error">{{ form.discount_option.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group" id="discount-price-group" style="display: none;">
+                    <label for="{{ form.discount_price.id_for_label }}" class="form-label">{{ form.discount_price.label }}</label>
+                    <div class="price-input">
+                        <span class="currency">$</span>
+                        {{ form.discount_price }}
                     </div>
-                    
-                    <div class="preview-meta">
-                        <div class="preview-meta-item">
-                            <span class="preview-meta-label">Title:</span>
-                            <span class="preview-meta-value" id="preview-title">Untitled Course</span>
-                        </div>
-                        <div class="preview-meta-item">
-                            <span class="preview-meta-label">Instructor:</span>
-                            <span class="preview-meta-value">Sarah Johnson</span>
-                        </div>
-                        <div class="preview-meta-item">
-                            <span class="preview-meta-label">Category:</span>
-                            <span class="preview-meta-value" id="preview-category">Not selected</span>
-                        </div>
-                        <div class="preview-meta-item">
-                            <span class="preview-meta-label">Level:</span>
-                            <span class="preview-meta-value" id="preview-level">Beginner</span>
-                        </div>
-                        <div class="preview-meta-item">
-                            <span class="preview-meta-label">Price:</span>
-                            <span class="preview-meta-value" id="preview-price">$0.00</span>
-                        </div>
+                    {% if form.discount_price.errors %}
+                        <div class="error">{{ form.discount_price.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Additional Settings -->
+            <div class="form-section">
+                <h3 class="form-section-title">
+                    <i class="fas fa-cog"></i> Additional Settings
+                </h3>
+                
+                <div class="form-group">
+                    <label for="{{ form.language.id_for_label }}" class="form-label">{{ form.language.label }}</label>
+                    {{ form.language }}
+                    {% if form.language.errors %}
+                        <div class="error">{{ form.language.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.difficulty.id_for_label }}" class="form-label">{{ form.difficulty.label }}</label>
+                    {{ form.difficulty }}
+                    {% if form.difficulty.errors %}
+                        <div class="error">{{ form.difficulty.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="checkbox-group">
+                    {{ form.has_certificate }}
+                    <label for="{{ form.has_certificate.id_for_label }}" class="checkbox-label">{{ form.has_certificate.label }}</label>
+                    {% if form.has_certificate.errors %}
+                        <div class="error">{{ form.has_certificate.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Submit Section -->
+            <div class="form-group" style="margin-top: 2rem;">
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">
+                    <i class="fas fa-rocket"></i> Publish Course
+                </button>
+            </div>
+        </div>
+        
+        <!-- Course Preview Card -->
+        <div class="preview-card">
+            <div class="preview-header">
+                <h3 class="preview-title">Course Preview</h3>
+                <p class="preview-subtitle">How your course will appear to students</p>
+            </div>
+            
+            <div class="preview-body">
+                <div class="preview-thumbnail">
+                    <img src="" alt="Course Thumbnail" id="preview-thumbnail-img">
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-secondary);">
+                        <i class="fas fa-image" style="font-size: 2rem;"></i>
                     </div>
-                    
-                    <div class="preview-actions">
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-eye"></i> Preview
-                        </button>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-save"></i> Save Draft
-                        </button>
+                </div>
+                
+                <div class="preview-meta">
+                    <div class="preview-meta-item">
+                        <span class="preview-meta-label">Title:</span>
+                        <span class="preview-meta-value" id="preview-title">Untitled Course</span>
                     </div>
+                    <div class="preview-meta-item">
+                        <span class="preview-meta-label">Instructor:</span>
+                        <span class="preview-meta-value">{{ request.user.get_full_name }}</span>
+                    </div>
+                    <div class="preview-meta-item">
+                        <span class="preview-meta-label">Category:</span>
+                        <span class="preview-meta-value" id="preview-category">Not selected</span>
+                    </div>
+                    <div class="preview-meta-item">
+                        <span class="preview-meta-label">Level:</span>
+                        <span class="preview-meta-value" id="preview-level">Beginner</span>
+                    </div>
+                    <div class="preview-meta-item">
+                        <span class="preview-meta-label">Price:</span>
+                        <span class="preview-meta-value" id="preview-price">$0.00</span>
+                    </div>
+                </div>
+                
+                <div class="preview-actions">
+                    <button type="button" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Draft
+                    </button>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+</form>
 {% endblock %}
 
-{% block scripts %}
-    <script>
-        // JavaScript to handle thumbnail preview and other dynamic behaviors
-        document.getElementById('id_thumbnail').addEventListener('change', function(e) {
-            if (e.target.files && e.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const preview = document.getElementById('preview-thumbnail-img');
-                    preview.src = event.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(e.target.files[0]);
-            }
-        });
+{% block script %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Thumbnail preview functionality
+    const thumbnailInput = document.getElementById('{{ form.thumbnail.id_for_label }}');
+    const thumbnailPreview = document.getElementById('thumbnail-preview');
+    const thumbnailPreviewImg = document.getElementById('preview-thumbnail-img');
+    const thumbnailUploadBtn = document.getElementById('thumbnail-upload-btn');
+    
+    thumbnailUploadBtn.addEventListener('click', function() {
+        thumbnailInput.click();
+    });
+    
+    thumbnailInput.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                thumbnailPreview.style.display = 'block';
+                thumbnailPreview.querySelector('.preview-image').src = event.target.result;
+                thumbnailPreviewImg.src = event.target.result;
+                thumbnailPreviewImg.style.display = 'block';
+                document.querySelector('.preview-thumbnail > div').style.display = 'none';
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+    
+    // Remove image functionality
+    document.querySelector('.remove-image').addEventListener('click', function(e) {
+        e.preventDefault();
+        thumbnailInput.value = '';
+        thumbnailPreview.style.display = 'none';
+        thumbnailPreviewImg.style.display = 'none';
+        document.querySelector('.preview-thumbnail > div').style.display = 'flex';
+    });
 
-        // Update preview fields when form inputs change
-        document.getElementById('id_title').addEventListener('input', function() {
-            document.getElementById('preview-title').textContent = this.value || 'Untitled Course';
-        });
+    // Video upload button
+    const videoUploadBtn = document.getElementById('video-upload-btn');
+    const videoInput = document.getElementById('{{ form.promo_video.id_for_label }}');
+    
+    videoUploadBtn.addEventListener('click', function() {
+        videoInput.click();
+    });
 
-        document.getElementById('id_category').addEventListener('change', function() {
-            document.getElementById('preview-category').textContent = this.options[this.selectedIndex].text || 'Not selected';
-        });
+    // Update preview when form fields change
+    document.getElementById('{{ form.title.id_for_label }}').addEventListener('input', function() {
+        document.getElementById('preview-title').textContent = this.value || 'Untitled Course';
+    });
 
-        document.getElementById('id_difficulty').addEventListener('change', function() {
-            document.getElementById('preview-level').textContent = this.options[this.selectedIndex].text || 'Beginner';
-        });
+    document.getElementById('{{ form.category.id_for_label }}').addEventListener('change', function() {
+        const categoryText = this.options[this.selectedIndex].text;
+        document.getElementById('preview-category').textContent = categoryText || 'Not selected';
+    });
 
-        document.getElementById('id_price').addEventListener('input', function() {
-            document.getElementById('preview-price').textContent = '$' + (this.value || '0.00');
-        });
+    document.getElementById('{{ form.difficulty.id_for_label }}').addEventListener('change', function() {
+        document.getElementById('preview-level').textContent = this.options[this.selectedIndex].text;
+    });
 
-        // Additional JavaScript for form validation, preview updates, etc.
-    </script>
+    document.getElementById('{{ form.price.id_for_label }}').addEventListener('input', function() {
+        const price = parseFloat(this.value) || 0;
+        document.getElementById('preview-price').textContent = '$' + price.toFixed(2);
+    });
+
+    // Free course checkbox
+    document.getElementById('{{ form.free_course.id_for_label }}').addEventListener('change', function() {
+        const priceInput = document.getElementById('{{ form.price.id_for_label }}');
+        if (this.checked) {
+            priceInput.value = '0.00';
+            priceInput.disabled = true;
+            document.getElementById('preview-price').textContent = 'Free';
+        } else {
+            priceInput.disabled = false;
+            const price = parseFloat(priceInput.value) || 0;
+            document.getElementById('preview-price').textContent = '$' + price.toFixed(2);
+        }
+    });
+
+    // Discount option toggle
+    document.getElementById('{{ form.discount_option.id_for_label }}').addEventListener('change', function() {
+        const discountGroup = document.getElementById('discount-price-group');
+        if (this.checked) {
+            discountGroup.style.display = 'block';
+        } else {
+            discountGroup.style.display = 'none';
+        }
+    });
+
+    // Initialize discount price group visibility
+    if (document.getElementById('{{ form.discount_option.id_for_label }}').checked) {
+        document.getElementById('discount-price-group').style.display = 'block';
+    }
+
+    // Curriculum Builder Functionality
+    const curriculumBuilder = document.getElementById('curriculum-builder');
+    const totalSections = document.getElementById('id_sections-TOTAL_FORMS');
+    const addSectionBtn = document.getElementById('add-section');
+
+    // Add new section
+    addSectionBtn.addEventListener('click', function() {
+        const sectionCount = parseInt(totalSections.value);
+        const emptySectionForm = document.getElementById('empty-section-form').cloneNode(true);
+        emptySectionForm.style.display = 'block';
+        emptySectionForm.id = '';
+        emptySectionForm.className = 'section-form';
+        emptySectionForm.dataset.sectionIndex = sectionCount;
+        
+        // Update form prefixes
+        const sectionRegex = new RegExp(`sections-(\\d+)`, 'g');
+        emptySectionForm.innerHTML = emptySectionForm.innerHTML.replace(/__prefix__/g, sectionCount);
+        
+        // Add remove button
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'btn btn-danger remove-section';
+        removeBtn.innerHTML = '<i class="fas fa-trash"></i> Remove Section';
+        emptySectionForm.appendChild(removeBtn);
+        
+        // Add lectures container
+        const lecturesContainer = document.createElement('div');
+        lecturesContainer.className = 'lectures-container';
+        lecturesContainer.innerHTML = `
+            <h5>Lectures</h5>
+            <input type="hidden" name="lectures-${sectionCount}-TOTAL_FORMS" value="0" id="id_lectures-${sectionCount}-TOTAL_FORMS">
+            <input type="hidden" name="lectures-${sectionCount}-INITIAL_FORMS" value="0" id="id_lectures-${sectionCount}-INITIAL_FORMS">
+            <input type="hidden" name="lectures-${sectionCount}-MIN_NUM_FORMS" value="0" id="id_lectures-${sectionCount}-MIN_NUM_FORMS">
+            <input type="hidden" name="lectures-${sectionCount}-MAX_NUM_FORMS" value="1000" id="id_lectures-${sectionCount}-MAX_NUM_FORMS">
+            <button type="button" class="btn btn-secondary add-lecture" data-section="${sectionCount}">
+                <i class="fas fa-plus"></i> Add Lecture
+            </button>
+        `;
+        emptySectionForm.appendChild(lecturesContainer);
+        
+        // Add before the add section button
+        addSectionBtn.insertAdjacentElement('beforebegin', emptySectionForm);
+        
+        // Update total forms count
+        totalSections.value = sectionCount + 1;
+    });
+
+    // Add new lecture to a section
+    curriculumBuilder.addEventListener('click', function(e) {
+        if (e.target.classList.contains('add-lecture')) {
+            const sectionForm = e.target.closest('.section-form');
+            const sectionIndex = sectionForm.dataset.sectionIndex;
+            const lecturesContainer = sectionForm.querySelector('.lectures-container');
+            const totalForms = lecturesContainer.querySelector(`[id$="lectures-${sectionIndex}-TOTAL_FORMS"]`);
+            const lectureCount = parseInt(totalForms.value);
+            
+            const emptyLectureForm = document.getElementById('empty-lecture-form').cloneNode(true);
+            emptyLectureForm.style.display = 'block';
+            emptyLectureForm.id = '';
+            emptyLectureForm.className = 'lecture-form';
+            
+            // Update form prefixes
+            emptyLectureForm.innerHTML = emptyLectureForm.innerHTML.replace(/__prefix__/g, lectureCount);
+            emptyLectureForm.innerHTML = emptyLectureForm.innerHTML.replace(/lectures-0-/g, `lectures-${sectionIndex}-`);
+            
+            // Add remove button
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'btn btn-danger remove-lecture';
+            removeBtn.innerHTML = '<i class="fas fa-trash"></i> Remove Lecture';
+            emptyLectureForm.appendChild(removeBtn);
+            
+            // Add before the add lecture button
+            e.target.insertAdjacentElement('beforebegin', emptyLectureForm);
+            
+            // Update total forms count
+            totalForms.value = lectureCount + 1;
+        }
+    });
+
+    // Remove section
+    curriculumBuilder.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-section')) {
+            const sectionForm = e.target.closest('.section-form');
+            sectionForm.remove();
+            
+            // Update total forms count
+            totalSections.value = parseInt(totalSections.value) - 1;
+        }
+        
+        // Remove lecture
+        if (e.target.classList.contains('remove-lecture')) {
+            const lectureForm = e.target.closest('.lecture-form');
+            const lecturesContainer = lectureForm.closest('.lectures-container');
+            const totalForms = lecturesContainer.querySelector('[id$="TOTAL_FORMS"]');
+            
+            lectureForm.remove();
+            totalForms.value = parseInt(totalForms.value) - 1;
+        }
+    });
+});
+</script>
 {% endblock %}

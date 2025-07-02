@@ -1,12 +1,43 @@
 from django.conf import settings
 from django.db import models
 from django.db.models import Avg, Count
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
+
+
+class InstructorRequest(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='instructor_requests'
+    )
+    motivation = models.TextField(help_text="Why do you want to become an instructor?")
+    qualifications = models.TextField(blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('pending', 'Pending'),
+            ('approved', 'Approved'),
+            ('rejected', 'Rejected')
+        ],
+        default='pending'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+
+    def approve(self):
+        Instructor.objects.get_or_create(user=self.user)
+        self.status = 'approved'
+        self.save()
+
+    def __str__(self):
+        return f"Instructor request from {self.user.username}"
 
 class Instructor(models.Model):
     user = models.OneToOneField(
@@ -39,6 +70,24 @@ class Instructor(models.Model):
 
     def get_absolute_url(self):
         return reverse('instructor_detail', kwargs={'pk': self.pk})
+
+
+class Student(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='student_profile'
+    )
+    bio = models.TextField(blank=True)
+    profile_picture = models.ImageField(
+        upload_to='student_profiles/',
+        blank=True,
+        null=True
+    )
+    # Add any additional student-specific fields here
+
+    def __str__(self):
+        return f"Student profile for {self.user.username}"
 
 
 class Category(models.Model):
@@ -449,3 +498,17 @@ class Certificate(models.Model):
 
     def __str__(self):
         return f"Certificate for {self.enrollment.student} in {self.enrollment.course}"
+
+
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_user_profiles(sender, instance, created, **kwargs):
+    if created:
+        # Every user gets a student profile by default
+        Student.objects.get_or_create(user=instance)
+
+@receiver(post_save, sender=InstructorRequest)
+def handle_instructor_approval(sender, instance, created, **kwargs):
+    if instance.status == 'approved' and not hasattr(instance.user, 'instructor_profile'):
+        Instructor.objects.create(user=instance.user)

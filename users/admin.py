@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (
-    Instructor, Course, Review, Category,
+    Instructor, Course, InstructorRequest, Review, Category,
     Section, Lecture, LectureResource,
     Enrollment, CompletedLecture, Certificate
 )
@@ -53,3 +53,15 @@ class CompletedLectureAdmin(admin.ModelAdmin):
 class CertificateAdmin(admin.ModelAdmin):
     list_display = ('enrollment', 'certificate_id', 'issued_at')
     ordering = ('issued_at',)
+
+
+@admin.register(InstructorRequest)
+class InstructorRequestAdmin(admin.ModelAdmin):
+    list_display = ('user', 'status', 'created_at')
+    actions = ['approve_requests']
+    
+    def approve_requests(self, request, queryset):
+        for req in queryset:
+            req.approve()
+        self.message_user(request, f"{queryset.count()} requests approved")
+    approve_requests.short_description = "Approve selected requests"
