@@ -1,0 +1,12 @@
+{% extends 'users/base_dashboard.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2>Become an Instructor</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+    </form>
+</div>
+{% endblock %}
