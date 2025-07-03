@@ -78,7 +78,7 @@ def signup_view(request):
             
     else:
         form = SignUpForm()
-    return render(request, 'users/signup.html', {'form': form})
+    return render(request, 'users/auth/signup.html', {'form': form})
 
 def logout_view(request):
     logout(request)

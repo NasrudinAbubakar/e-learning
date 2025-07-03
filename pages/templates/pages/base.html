@@ -233,20 +233,22 @@
             margin-bottom: 0.5rem;
         }
 
-        .nav-link {
+        .sidebar-nav a.nav-link {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             padding: 0.875rem 1.25rem;
             border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.3s ease, transform 0.3s ease;
             margin-bottom: 0.25rem;
             position: relative;
             overflow: hidden;
         }
 
-        .nav-link::before {
+        /* Decorative accent bar */
+        .sidebar-nav a.nav-link::before {
             content: '';
             position: absolute;
             left: 0;
@@ -255,36 +257,40 @@
             width: 3px;
             background: linear-gradient(to bottom, var(--sidebar-accent), var(--accent-pink));
             transform: translateX(-100%);
-            transition: var(--transition);
+            transition: transform 0.3s ease;
         }
 
-        .nav-link:hover {
+        /* Hover effect */
+        .sidebar-nav a.nav-link:hover {
             background-color: var(--sidebar-hover);
-            transform: translateX(5px);
+            transform: translateX(4px);
         }
 
-        .nav-link:hover::before {
+        .sidebar-nav a.nav-link:hover::before {
             transform: translateX(0);
         }
 
-        .nav-link.active {
+        /* Active state */
+        .sidebar-nav a.nav-link.active {
             background-color: rgba(124, 58, 237, 0.15);
             color: white;
             font-weight: 500;
         }
 
-        .nav-link.active::before {
+        .sidebar-nav a.nav-link.active::before {
             transform: translateX(0);
         }
 
-        .nav-link i {
+        /* Icon styling */
+        .sidebar-nav a.nav-link i {
             width: 24px;
             text-align: center;
             font-size: 1.1em;
             color: var(--sidebar-accent);
+            flex-shrink: 0;
         }
 
-        .nav-link.active i {
+        .sidebar-nav a.nav-link.active i {
             color: white;
         }
 
@@ -321,6 +327,7 @@
             box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
 
         }
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(124, 58, 237, 0.3);
@@ -468,7 +475,7 @@
             transform: scale(1.05);
         }
 
-               .explore-header {
+        .explore-header {
             margin-bottom: 2.5rem;
         }
 
@@ -961,7 +968,7 @@
             visibility: visible;
         }
 
-         /* Category Header */
+        /* Category Header */
         .category-header {
             display: flex;
             justify-content: space-between;
@@ -1042,7 +1049,7 @@
             color: white;
         }
 
-                /* Filter Bar */
+        /* Filter Bar */
         .filter-bar {
             display: flex;
             justify-content: space-between;
@@ -1084,7 +1091,7 @@
             color: var(--text-secondary);
         }
 
-               /* Courses Grid */
+        /* Courses Grid */
         .courses-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1377,7 +1384,7 @@
             cursor: not-allowed;
         }
 
-         /* Become Instructor Page Specific Styles */
+        /* Become Instructor Page Specific Styles */
         .instructor-hero {
             background: linear-gradient(135deg, var(--sidebar-accent) 0%, var(--accent-pink) 100%);
             border-radius: var(--border-radius-lg);
@@ -1642,7 +1649,7 @@
         }
 
 
-          .bootcamp-features {
+        .bootcamp-features {
             margin-bottom: 4rem;
         }
 
@@ -1813,7 +1820,7 @@
             background-color: rgba(255, 255, 255, 0.9);
         }
 
-          /* Progress Indicator */
+        /* Progress Indicator */
         .progress-container {
             position: fixed;
             top: 0;
@@ -1907,12 +1914,13 @@
                 width: 100%;
                 flex-wrap: wrap;
             }
-             .instructor-stats {
+
+            .instructor-stats {
                 flex-wrap: wrap;
                 gap: 1.5rem;
             }
 
-             .bootcamp-stats {
+            .bootcamp-stats {
                 flex-wrap: wrap;
                 gap: 1.5rem;
             }
@@ -1953,7 +1961,7 @@
                 min-width: 300px;
             }
 
-             .courses-grid {
+            .courses-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1970,6 +1978,7 @@
                 align-items: flex-start;
                 gap: 1rem;
             }
+
             .popular-courses {
                 grid-template-columns: 1fr;
             }
@@ -1996,7 +2005,7 @@
                 font-size: 1rem;
             }
 
-                .category-title {
+            .category-title {
                 font-size: 1.75rem;
             }
 
@@ -2008,7 +2017,7 @@
                 grid-template-columns: 1fr;
             }
 
-             .instructor-hero {
+            .instructor-hero {
                 padding: 3rem 1.5rem;
             }
 
@@ -2070,7 +2079,7 @@
                 width: 100%;
             }
 
-              .explore-header h1 {
+            .explore-header h1 {
                 font-size: 1.75rem;
             }
 
@@ -2078,7 +2087,7 @@
                 font-size: 1rem;
             }
 
-             .bootcamp-actions {
+            .bootcamp-actions {
                 flex-direction: column;
             }
 
@@ -2090,7 +2099,8 @@
                 width: 100%;
                 padding: 1rem;
             }
-                  .instructor-hero h1 {
+
+            .instructor-hero h1 {
                 font-size: 1.75rem;
             }
 
@@ -2227,46 +2237,48 @@
         <nav class="sidebar-nav">
             <div class="nav-section">
                 <div class="nav-section-title">Discover</div>
-                <div class="nav-link active">
+                <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
+                    href="{% url 'index' %}">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
-                </div>
-                <div class="nav-link">
+                </a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'explore_courses' %}active{% endif %}"
+                    href="{% url 'explore_courses' %}">
                     <i class="fas fa-compass"></i>
                     <span>Explore Courses</span>
-                </div>
-                <div class="nav-link">
+                </a>
+                <a class="nav-link">
                     <i class="fas fa-user-plus"></i>
                     <span>Become Instructor</span>
-                </div>
+                </a>
             </div>
 
             <div class="nav-section">
                 <div class="nav-section-title">Categories</div>
-                <div class="nav-link">
+                <a class="nav-link">
                     <i class="fas fa-laptop-code"></i>
                     <span>Technology</span>
-                </div>
-                <div class="nav-link">
+                </a>
+                <a class="nav-link">
                     <i class="fas fa-briefcase"></i>
                     <span>Business</span>
-                </div>
-                <div class="nav-link">
+                </a>
+                <a class="nav-link">
                     <i class="fas fa-paint-brush"></i>
                     <span>Design</span>
-                </div>
-                <div class="nav-link">
+                </a>
+                <a class="nav-link">
                     <i class="fas fa-language"></i>
                     <span>Languages</span>
-                </div>
+                </a>
             </div>
 
             <div class="nav-section">
                 <div class="nav-section-title">Resources</div>
-                <div class="nav-link">
+                <a class="nav-link">
                     <i class="fas fa-podcast"></i>
                     <span>Live Bootcamp</span>
-                </div>
+                </a>
 
             </div>
         </nav>

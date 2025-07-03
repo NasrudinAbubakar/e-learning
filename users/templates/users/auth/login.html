@@ -388,7 +388,7 @@
         <div class="auth-form-container">
             <div class="auth-form-header">
                 <h2>Sign in to your account</h2>
-                <p>Don't have an account? <a href="{% url 'signup' %}">Sign up now</a></p>
+                <p>Don't have an account? <a href="{% url 'users:signup' %}">Sign up now</a></p>
             </div>
 
             <form method="post" class="auth-form">
@@ -434,7 +434,7 @@
                         <input type="checkbox" id="remember" name="remember" class="checkbox-input">
                         <label for="remember" class="checkbox-label">Remember me</label>
                     </div>
-                    <a href="{% url 'password_reset' %}" style="font-size: 0.875rem; color: var(--primary); text-decoration: none;">Forgot password?</a>
+                    <a href="{% url 'users:password_reset' %}" style="font-size: 0.875rem; color: var(--primary); text-decoration: none;">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Sign in</button>
@@ -455,7 +455,7 @@
             </div>
 
             <div class="form-footer">
-                <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+                <p>Don't have an account? <a href="{% url 'users:signup' %}">Sign up</a></p>
             </div>
         </div>
     </div>
