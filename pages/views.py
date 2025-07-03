@@ -12,3 +12,6 @@ def Featured_Instructors(request):
 
 def Learning_Path(request): 
     return render(request, 'pages/learning_path.html')
+
+def Live_Bootcamp(request): 
+    return render(request, 'pages/live-bootcamp.html')

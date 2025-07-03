@@ -6,4 +6,5 @@ urlpatterns = [
     path('explore-courses/', Explore_Courses, name='explore_courses'),
     path('featured-instructors/', Featured_Instructors, name='featured_instructors'),
     path('learning-paths/', Learning_Path, name='learning_path'),
+    path('live-bootcamps/', Live_Bootcamps, name='learning_path'),
 ]
