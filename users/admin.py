@@ -65,3 +65,11 @@ class InstructorRequestAdmin(admin.ModelAdmin):
             req.approve()
         self.message_user(request, f"{queryset.count()} requests approved")
     approve_requests.short_description = "Approve selected requests"
+
+class studentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'email', 'is_active')
+    search_fields = ('user__username', 'user__email')
+    list_filter = ('is_active',)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(user__is_student=True)

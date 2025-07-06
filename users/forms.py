@@ -23,11 +23,11 @@ class SignUpForm(UserCreationForm):
         ('instructor', 'Instructor'),
     )
     
-    account_type = forms.ChoiceField(choices=ACCOUNT_TYPES)
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    motivation = forms.CharField(
+    account_type   = forms.ChoiceField(choices=ACCOUNT_TYPES)
+    email          = forms.EmailField(required=True)
+    first_name     = forms.CharField(required=True)
+    last_name      = forms.CharField(required=True)
+    motivation     = forms.CharField(
         required=False,
         widget=forms.Textarea,
         help_text="Why do you want to become an instructor?"
@@ -39,8 +39,14 @@ class SignUpForm(UserCreationForm):
     )
 
     class Meta:
-        model = User
-        fields = ('email', 'first_name', 'last_name', 'password1', 'password2', 'account_type')
+        model  = User
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'password1',
+            'password2',
+        )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -50,9 +56,18 @@ class SignUpForm(UserCreationForm):
             if not cleaned_data.get('qualifications'):
                 self.add_error('qualifications', "Please describe your qualifications")
         return cleaned_data
+
     def save(self, commit=True):
-        # We override save because we handle user creation in the view
-        return None
+        # Build the user but don’t save to DB yet
+        user = super().save(commit=False)
+        user.username   = self.cleaned_data['email']
+        user.email      = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name  = self.cleaned_data['last_name']
+        if commit:
+            user.save()
+        return user
+
 
 class LoginForm(forms.Form):
     email = forms.EmailField()

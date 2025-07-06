@@ -56,28 +56,27 @@ def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.username = form.cleaned_data['email']  # Use email as username
-            user.save()
-            
-            # Create student profile by default
-            Student.objects.create(user=user)
-            
-            # If signing up as instructor, create request
-            if form.cleaned_data.get('account_type') == 'instructor':
+            user = form.save()  # now returns a saved User
+            at   = form.cleaned_data['account_type']
+
+            # everyone gets a student profile
+            Student.objects.get_or_create(user=user)
+
+            # optionally create an instructor request
+            if at == 'instructor':
                 InstructorRequest.objects.create(
-                    user=user,
-                    motivation=form.cleaned_data.get('motivation', ''),
-                    qualifications=form.cleaned_data.get('qualifications', '')
+                    user           = user,
+                    motivation     = form.cleaned_data['motivation'],
+                    qualifications = form.cleaned_data['qualifications'],
                 )
-                messages.info(request, "Your instructor request has been submitted for approval")
-            
+                messages.info(request, "Your instructor request has been submitted for approval.")
+
             login(request, user)
             messages.success(request, "Account created successfully!")
-            return redirect('dashboard')  # Redirect to a generic dashboard first
-            
+            return redirect('users:student_dashboard')
     else:
         form = SignUpForm()
+
     return render(request, 'users/auth/signup.html', {'form': form})
 
 def logout_view(request):
